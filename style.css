@@ -5,12 +5,22 @@
   padding: 0;
 }
 
+/* Brand color variables (L'Oréal: black, white, vibrant red) */
+:root {
+  --brand-black: #000000;
+  --brand-red: #e10600; /* vibrant L'Oréal red accent */
+  --brand-gray: #666666;
+  --bg: #ffffff;
+}
+
 /* —— body + fonts —— */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  /* Use Helvetica / system sans serif for a clean, corporate feel */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--brand-black);
   display: flex;
   justify-content: center;
+  background: var(--bg);
 }
 
 .page-wrapper {
@@ -21,13 +31,27 @@ body {
 /* header */
 .site-header {
   text-align: center;
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
+/* logo */
+.site-logo {
+  display: block;
+  margin: 0 auto 10px;
+  max-height: 56px;
+  width: auto;
+  /* keep logo crisp on white background */
+  background: transparent;
+}
+
+/* site title: use a stronger serif-like feel for contrast */
 .site-title {
-  font-size: 22px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+  color: var(--brand-black);
 }
 
 /* chat window */
@@ -35,29 +59,88 @@ body {
   margin: 40px 0;
 }
 
+/* chat window: stack messages with a small gap */
 .chat-window {
   height: 360px;
-  border: 1px solid #000;
+  border: 1px solid var(--brand-gray);
   padding: 20px;
   font-size: 18px;
   line-height: 1.5;
   overflow-y: auto;
   background: #fafafa;
   white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
 }
 
 /* messages */
 .msg {
   margin-bottom: 14px;
   line-height: 1.5;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+/* assistant messages align left, user messages align right */
+.msg.ai {
+  justify-content: flex-start;
 }
 
 .msg.user {
-  color: #000;
+  justify-content: flex-end;
 }
 
-.msg.ai {
-  color: #666666;
+/* bubble base style */
+.bubble {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  font-size: 15px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* assistant bubble (left) — light background with subtle border */
+.bubble.ai {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--brand-black);
+  border-radius: 14px 14px 14px 4px;
+}
+
+/* user bubble (right) — strong, branded look */
+.bubble.user {
+  background: var(--brand-black);
+  color: #ffffff;
+  border-radius: 14px 14px 4px 14px;
+  text-align: right;
+}
+
+/* label above content in each bubble */
+.bubble .label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+/* content text */
+.bubble .content {
+  white-space: pre-wrap;
+}
+
+/* smaller text/color tweak for assistant tone vs. user */
+.msg.ai .bubble .label {
+  color: var(--brand-gray);
+}
+
+.msg.user .bubble .label {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* input row */
@@ -75,13 +158,14 @@ body {
 }
 
 .chat-form input:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--brand-black);
   outline-offset: 2px;
 }
 
+/* send button: black by default, red accent on hover to echo L'Oréal palette */
 .chat-form button {
   font-size: 18px;
-  background: #000;
+  background: var(--brand-black);
   color: #fff;
   border: none;
   padding: 12px;
@@ -91,7 +175,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.2s ease;
 }
 
 .chat-form button .material-icons {
@@ -99,11 +183,11 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: var(--brand-red);
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--brand-black);
   outline-offset: 2px;
 }
 
@@ -125,7 +209,7 @@ body {
   margin: 60px 0 40px;
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--brand-gray);
 }
 
 .site-footer nav {
@@ -134,10 +218,27 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--brand-black);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: var(--brand-red);
+}
+
+/* Latest question banner (appears above the chat window) */
+.latest-question {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-left: 4px solid var(--brand-red);
+  background: #fff7f7;
+  color: var(--brand-black);
+  font-size: 16px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Keep visually-hidden behavior for empty state */
+.latest-question.visually-hidden {
+  display: none;
 }
